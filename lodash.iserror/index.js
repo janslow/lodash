@@ -1,5 +1,5 @@
 /**
- * lodash 3.1.0 (Custom Build) <https://lodash.com/>
+ * lodash 3.1.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
  * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -25,9 +25,11 @@ var objectToString = objectProto.toString;
  *
  * @static
  * @memberOf _
+ * @since 3.0.0
  * @category Lang
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an error object, else `false`.
+ * @returns {boolean} Returns `true` if `value` is an error object,
+ *  else `false`.
  * @example
  *
  * _.isError(new Error);
@@ -40,9 +42,8 @@ function isError(value) {
   if (!isObjectLike(value)) {
     return false;
   }
-  var Ctor = value.constructor;
   return (objectToString.call(value) == errorTag) ||
-    (typeof Ctor == 'function' && objectToString.call(Ctor.prototype) == errorTag);
+    (typeof value.message == 'string' && typeof value.name == 'string');
 }
 
 /**
@@ -51,6 +52,7 @@ function isError(value) {
  *
  * @static
  * @memberOf _
+ * @since 4.0.0
  * @category Lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
