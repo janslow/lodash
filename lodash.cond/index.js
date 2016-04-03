@@ -1,10 +1,10 @@
 /**
- * lodash 4.2.1 (Custom Build) <https://lodash.com/>
+ * lodash 4.3.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
- * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <https://lodash.com/license>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
 var baseIteratee = require('lodash._baseiteratee'),
     rest = require('lodash.rest');
@@ -61,6 +61,7 @@ function arrayMap(array, iteratee) {
  *
  * @static
  * @memberOf _
+ * @since 4.0.0
  * @category Util
  * @param {Array} pairs The predicate-function pairs.
  * @returns {Function} Returns the new function.
@@ -82,13 +83,14 @@ function arrayMap(array, iteratee) {
  * // => 'no match'
  */
 function cond(pairs) {
-  var length = pairs ? pairs.length : 0;
+  var length = pairs ? pairs.length : 0,
+      toIteratee = baseIteratee;
 
   pairs = !length ? [] : arrayMap(pairs, function(pair) {
     if (typeof pair[1] != 'function') {
       throw new TypeError(FUNC_ERROR_TEXT);
     }
-    return [baseIteratee(pair[0]), pair[1]];
+    return [toIteratee(pair[0]), pair[1]];
   });
 
   return rest(function(args) {
